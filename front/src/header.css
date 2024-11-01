@@ -1,0 +1,18 @@
+.home-header {
+    background-color: #929292;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #ccc;
+}
+
+.home-header h1 {
+    margin-left: 10px;
+    font-size: 24px;
+    color: #000000;
+}
+
+.home-header svg {
+    width: 40px;
+    height: 40px;
+}

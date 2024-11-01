@@ -1,0 +1,44 @@
+.home-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.home-header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.conteiner-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;  
+}
+
+.icon-button {
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 130px;
+}
+
+.icon-button svg {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 8px;
+}
+
+.icon-button:hover {
+  background-color: #f0f0f0;
+}
