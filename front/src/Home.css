@@ -1,13 +1,19 @@
-.home-container {
-  text-align: center;
-  padding: 20px;
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-.home-header {
-  margin-bottom: 20px;
+.body-home{
+  width: 100vw;
+  height: 100vh;
+}
+
+.home-container {
   display: flex;
-  justify-content: start;
-  align-items: center;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
 }
 
 .conteiner-buttons {
@@ -15,7 +21,8 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
-  flex-wrap: wrap;  
+  flex-wrap: wrap;
+  height: 100%;
 }
 
 .icon-button {
@@ -25,7 +32,6 @@
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  transition: background-color 0.3s;
   width: 100px;
   display: flex;
   flex-direction: column;

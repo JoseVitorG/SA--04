@@ -23,8 +23,3 @@ const Turnos = sequelize.define("Turnos", {
 )
 
 export default Turnos
-
-id,
-nome,
-horario_ini
-horario_fim
