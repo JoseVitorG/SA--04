@@ -1,11 +1,11 @@
 import { createRoot } from 'react-dom/client';
-import './index.css';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from './telas/Home.jsx';
 import Emprestimos from './telas/Emprestimos.jsx';
 import Epis from './telas/Epis.jsx';
 import Historico from './telas/Historico.jsx';
 import Funcionarios from './telas/Funcionarios.jsx';
+
 
 const router = createBrowserRouter([
   {

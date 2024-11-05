@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../db";
-import Login from "./Login";
+import sequelize from "../db.js";
+import Login from "./Login.js";
+import Turnos from "./Turnos.js"
 
 const Funcionarios = sequelize.define("Funcionarios", {
     id: {
@@ -13,7 +14,7 @@ const Funcionarios = sequelize.define("Funcionarios", {
         type: DataTypes.INTEGER, allowNull: false, foreignKey: { model: Login, key: "id" }
     },
     id_turno: {
-        type: DataTypes.INTEGER, allowNull: false, foreignKey: { model: Turno, key: "id" }
+        type: DataTypes.INTEGER, allowNull: false, foreignKey: { model: Turnos, key: "id" }
     }
 },
     {

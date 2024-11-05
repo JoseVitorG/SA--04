@@ -1,5 +1,4 @@
-import { where } from "sequelize"
-import Funcionarios from "../module/Funcionarios"
+import Funcionarios from "../module/Funcionarios.js"
 
 const listarFuncionarios = async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-import EPIs from "../module/EPIs"
+import EPIs from "../module/EPIs.js"
 
 const listarEPIs = async (req, res) => {
     try {

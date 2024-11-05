@@ -1,9 +1,9 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../db";
-import Funcionarios from "./Funcionarios";
-import EPIs from "./EPIs";
+import sequelize from "../db.js";
+import Funcionarios from "./Funcionarios.js";
+import EPIs from "./EPIs.js";
 
-const Historico = sequelize.define("Histórico", {
+const Historico = sequelize.define("Historico", {
     id: {
         type: DataTypes.INTEGER, allowNull: false, primaryKey: true, defaultValue: sequelize.literal("nextval('id_historico')")
     },

@@ -1,4 +1,4 @@
-import Historico from "../module/Historico"
+import Historico from "../module/Historico.js"
 
 const listarHistorico = async (req, res) => {
     try {

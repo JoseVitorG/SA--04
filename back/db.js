@@ -1,6 +1,8 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('')
+// postgresql://jos_:F6I2rl_mFOYJZm8oNvWNEQ@soda-cougar-2273.jxf.gcp-southamerica-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full
+
+const sequelize = new Sequelize('postgresql://jos_:F6I2rl_mFOYJZm8oNvWNEQ@soda-cougar-2273.jxf.gcp-southamerica-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full')
 
 try {
     await sequelize.authenticate();
