@@ -3,7 +3,7 @@ import { DataTypes } from "sequelize";
 
 const EPIs = sequelize.define('EPIs', {
     id: {
-        type: DataTypes.INTEGER, allowNull: false, primaryKey: true, defaultValue: sequelize.literal("nextval('id_sequence')")
+        type: DataTypes.INTEGER, allowNull: false, primaryKey: true, defaultValue: sequelize.literal("nextval('id_epi')")
     },
     nome: {
         type: DataTypes.STRING, allowNull: false, unique: true

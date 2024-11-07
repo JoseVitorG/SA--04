@@ -8,11 +8,11 @@ const Turnos = sequelize.define("Turnos", {
     nome: {
         type: DataTypes.STRING, allowNull: false
     },
-    id_ini: {
-        type: DataTypes.INTEGER, allowNull: false
+    ini: {
+        type: DataTypes.TIME, allowNull: false
     },
-    id_fim: {
-        type: DataTypes.INTEGER, allowNull: false
+    fim: {
+        type: DataTypes.TIME, allowNull: false
     }
 },
     {

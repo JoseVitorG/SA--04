@@ -5,6 +5,7 @@ import Emprestimos from './telas/Emprestimos.jsx';
 import Epis from './telas/Epis.jsx';
 import Historico from './telas/Historico.jsx';
 import Funcionarios from './telas/Funcionarios.jsx';
+import Cadastrar from './telas/Cadastrar.jsx';
 
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: '/historico',
     element: <Historico />,
+  },
+  {
+    path: '/cadastro',
+    element: <Cadastrar />,
   },
 ]);
 

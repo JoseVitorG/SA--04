@@ -10,7 +10,8 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
-try{
+try {
+    // await sequelize.sync({ force: true })
     await sequelize.sync()
 } catch (e) {
     console.log(e)
@@ -18,4 +19,4 @@ try{
 
 app.use(route)
 
-app.listen(porta, () => {console.log("foi")})
+app.listen(porta, () => { console.log("foi") })

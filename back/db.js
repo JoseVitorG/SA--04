@@ -1,8 +1,9 @@
 import { Sequelize } from 'sequelize';
 
-// postgresql://jos_:F6I2rl_mFOYJZm8oNvWNEQ@soda-cougar-2273.jxf.gcp-southamerica-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full
+// supabase.com
+// postgresql://postgres.xiygadphsgspqqijqbbl:[YOUR-PASSWORD]@aws-0-sa-east-1.pooler.supabase.com:6543/postgres
 
-const sequelize = new Sequelize('postgresql://jos_:F6I2rl_mFOYJZm8oNvWNEQ@soda-cougar-2273.jxf.gcp-southamerica-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full')
+const sequelize = new Sequelize('postgresql://postgres.xiygadphsgspqqijqbbl:920lZFbIuxceHBlZ@aws-0-sa-east-1.pooler.supabase.com:6543/postgres')
 
 try {
     await sequelize.authenticate();
