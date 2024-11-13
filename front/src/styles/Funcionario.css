@@ -1,0 +1,33 @@
+.funcionarios-lista {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.funcionario-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.funcionario-foto {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.funcionario-nome {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
