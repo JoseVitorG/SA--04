@@ -14,7 +14,6 @@ router.post("/add_epi", criarEpi)
 router.put("/atualizar_func/:id", atualizarFuncionario)
 router.put("/atualizar_epi/:id", atualizarEpi)
 
-
 router.delete("/delete_func/:id", deletarFuncionario)
 router.delete("/delete_epi/:id", deletarEpi)
 

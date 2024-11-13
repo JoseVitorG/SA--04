@@ -13,8 +13,10 @@ const listarFuncionarios = async (req, res) => {
 const criarFuncionario = async (req, res) => {
     try {
         const body = req.params
-        await Funcionarios.create({ body })
-        res.status(201).send(true)
+        if (body.nome && body.id_login && body.id_turno) {
+            await Funcionarios.create({ body })
+            res.status(201).send(true)
+        } else res.status(500).send("erro")
     } catch (e) {
         console.log(e)
         res.status(500).send("erro")
@@ -25,8 +27,10 @@ const atualizarFuncionario = async (req, res) => {
     try {
         const { id } = req.params
         const body = req.body
-        await Funcionarios.update({ body }, { where: { id } })
-        res.status(202).send(true)
+        if (body.nome || body.id_login || body.id_turno) {
+            await Funcionarios.update({ body }, { where: { id } })
+            res.status(202).send(true)
+        } else res.status(500).send("uga buga")
     } catch (e) {
         console.log(e)
         res.status(500).send("erro")
@@ -44,4 +48,4 @@ const deletarFuncionario = async (req, res) => {
     }
 }
 
-export { deletarFuncionario, criarFuncionario ,atualizarFuncionario, listarFuncionarios }
+export { deletarFuncionario, criarFuncionario, atualizarFuncionario, listarFuncionarios }
