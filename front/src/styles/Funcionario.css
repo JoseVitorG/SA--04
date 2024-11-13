@@ -31,3 +31,17 @@
     font-weight: bold;
     color: #333;
 }
+
+.conteiner_add{
+    background-color: #777;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 100%;
+    font-size: 30px;
+    font-weight: bold;
+}

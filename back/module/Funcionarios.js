@@ -15,13 +15,20 @@ const Funcionarios = sequelize.define("Funcionarios", {
     },
     id_turno: {
         type: DataTypes.INTEGER, allowNull: false, foreignKey: { model: Turnos, key: "id" }
+    },
+    cargo:{
+        type: DataTypes.STRING, allowNull: false
     }
 },
     {
         freezeTableName: true,
-        tableName: "Funcionarios"
+        tableName: "Funcionarios",
+        timestamps: false
     }
 
 )
+
+Funcionarios.belongsTo(Login, { foreignKey: "id_login" });
+Funcionarios.belongsTo(Turnos, { foreignKey: "id_turno" });
 
 export default Funcionarios

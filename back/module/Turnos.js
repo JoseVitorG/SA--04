@@ -17,7 +17,8 @@ const Turnos = sequelize.define("Turnos", {
 },
     {
         freezeTableName: true,
-        tableName: "Turnos"
+        tableName: "Turnos",
+        timestamps: false
     }
 
 )

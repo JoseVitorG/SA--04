@@ -1,8 +1,16 @@
 import Funcionarios from "../module/Funcionarios.js"
+import Login from "../module/Login.js"
+import Turnos from "../module/Turnos.js"
 
 const listarFuncionarios = async (req, res) => {
     try {
-        const response = await Funcionarios.findAll()
+        const response = await Funcionarios.findAll({
+            attributes: { exclude: ["id_login", "id_turno"] },
+            include: [
+                { model: Login },
+                { model: Turnos }
+            ]
+        })
         res.status(200).send(response)
     } catch (err) {
         console.log(err)

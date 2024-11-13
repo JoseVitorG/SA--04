@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../content/Header.jsx";
 import '../styles/Epis.css';
+import axios from 'axios'
 
 function Epis() {
-    const [epis, setEpis] = useState([
-        { id: 1, nome: "Capacete de Segurança", foto: "https://images.tcdn.com.br/img/img_prod/1194153/capacete_de_seguranca_plastcor_classe_b_plt_com_suspensao_laranja_c_a_31469_149_1_b84b0a9a7832f3a3465472f41ed7ce77.png" },
-        { id: 2, nome: "Luva de Proteção", foto: "https://images.tcdn.com.br/img/img_prod/822550/luva_de_seguranca_tricotada_11_1_20200727102551.png" },
-        { id: 3, nome: "Óculos de Proteção", foto: "https://acdn.mitiendanube.com/stores/002/290/563/products/fac7cd94fdbbcb0d0279be16d80c8b55-4a67b3053ad18a402d17261027194206-1024-1024.png" },
-    ]);
+    const [epis, setEpis] = useState([]);
+
+    const pegar_epi = async() =>{
+        const response = await axios.get("http://localhost:6969/listar_epi")
+        setEpis(response.data)
+    }
+
+    useEffect(() => {pegar_epi()},[])
 
     return (
         <>
@@ -17,6 +21,7 @@ function Epis() {
                     <div key={epi.id} className="epi-item">
                         <img src={epi.foto} alt={epi.nome} className="epi-image" />
                         <p className="epi-name">{epi.nome}</p>
+                        <p className="epi-name">{epi.qtd}</p>
                     </div>
                 ))}
             </div>

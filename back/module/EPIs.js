@@ -13,12 +13,16 @@ const EPIs = sequelize.define('EPIs', {
     },
     qtd: {
         type: DataTypes.INTEGER, allowNull: false
+    },
+    foto:{
+        type: DataTypes.TEXT, allowNull: false
     }
 
 },
     {
         freezeTableName: true,
-        tableName: "EPIs"
+        tableName: "EPIs",
+        timestamps: false
     }
 )
 

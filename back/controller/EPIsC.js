@@ -1,5 +1,6 @@
 import EPIs from "../module/EPIs.js"
 
+
 const listarEPIs = async (req, res) => {
     try {
         const response = await EPIs.findAll()
@@ -12,14 +13,13 @@ const listarEPIs = async (req, res) => {
 
 const criarEpi = async (req, res) => {
     try {
-        const body = req.params
-        if (body.nome && body.descri && body.qtd) {
+        const body = req.body
+        if (body.nome && body.descri && body.qtd && body.foto) {
             if (body.qtd > 0) {
-                await EPIs.create({ body })
-                res.status(201).send(true)
+                await EPIs.create(body)
+                res.status(201).send("adicionado")
             } else res.status(500).send("quantidade tem que ser maior que 0")
         } else res.status(500).status("tem que ter todos os coisas coisados")
-
     } catch (e) {
         console.log(e)
         res.status(500).send("erro")
