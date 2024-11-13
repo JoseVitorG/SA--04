@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Header from "../content/Header.jsx"
 import { useEffect, useState } from 'react';
 import axios from 'axios'
-
+import '../styles/Historico.css'
 
 function Historico() {
     const [historico, setHistorico] = useState([])
@@ -17,22 +17,21 @@ function Historico() {
 
     return (
         <>
-            <Header nome={"Histórico"} svg={<svg viewBox="0 0 24 24" ><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M7 9H2V7h5v2zm0 3H2v2h5v-2zm13.59 7-3.83-3.83c-.8.52-1.74.83-2.76.83-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5c0 1.02-.31 1.96-.83 2.75L22 17.59 20.59 19zM17 11c0-1.65-1.35-3-3-3s-3 1.35-3 3 1.35 3 3 3 3-1.35 3-3zM2 19h10v-2H2v2z"></path></svg>} />
-
-
-            {historico.map(item =>
-            (
-                <div>
-                    <p>{item.EPI.nome}</p>
-                    <p>{item.Funcionario.nome}</p>
-                    <p>{item.horario_pego}</p>
-                    <p>{item.qtd}</p>
-                    <p>{item.horario_devolvido ? item.horario_devolvido : "Usando"}</p>
-                </div>
-            )
-            )}
+            <Header nome={"Histórico"} svg={<svg viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M7 9H2V7h5v2zm0 3H2v2h5v-2zm13.59 7-3.83-3.83c-.8.52-1.74.83-2.76.83-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5c0 1.02-.31 1.96-.83 2.75L22 17.59 20.59 19zM17 11c0-1.65-1.35-3-3-3s-3 1.35-3 3 1.35 3 3 3 3-1.35 3-3zM2 19h10v-2H2v2z"></path></svg>} />
+            
+            <div className="historico-container">
+                {historico.map((item, index) => (
+                    <div className="historico-item" key={index}>
+                        <p>{item.EPI.nome}</p>
+                        <p>{item.Funcionario.nome}</p>
+                        <p>{item.horario_pego}</p>
+                        <p>{item.qtd}</p>
+                        <p>{item.horario_devolvido ? item.horario_devolvido : "Usando"}</p>
+                    </div>
+                ))}
+            </div>
         </>
-    )
+    );
 }
 
 export default Historico;
