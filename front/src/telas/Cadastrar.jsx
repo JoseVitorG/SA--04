@@ -6,13 +6,7 @@ function Cadastrar() {
     const [data, setData] = useState([]);
     const [item, setItem] = useState({ nome: "", senha: "", email: "" });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setItem((prevItem) => ({
-            ...prevItem,
-            [name]: value,
-        }));
-    };
+    // const add_
 
     return (
         <>

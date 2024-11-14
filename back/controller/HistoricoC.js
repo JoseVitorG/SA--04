@@ -1,4 +1,4 @@
-import { where } from "sequelize"
+import sequelize from "../db.js"
 import EPIs from "../module/EPIs.js"
 import Funcionarios from "../module/Funcionarios.js"
 import Historico from "../module/Historico.js"
@@ -6,6 +6,21 @@ import Historico from "../module/Historico.js"
 const listarHistorico = async (_, res) => {
     try {
         const response = await Historico.findAll({
+            attributes: [
+                [
+                    sequelize.fn('TO_CHAR',
+                        sequelize.fn('TIMEZONE', 'America/Sao_Paulo', sequelize.col('horario_pego')),
+                        'DD/MM/YYYY HH24:MI'),
+                    "horario_pego"
+                ],
+                [
+                    sequelize.fn('TO_CHAR',
+                        sequelize.fn('TIMEZONE', 'America/Sao_Paulo', sequelize.col('horario_devolvido')),
+                        'DD/MM/YYYY HH24:MI'),
+                    "horario_devolvido"
+                ],
+                "qtd"
+            ],
             include: [
                 { model: Funcionarios },
                 { model: EPIs }
