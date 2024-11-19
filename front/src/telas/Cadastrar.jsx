@@ -6,7 +6,23 @@ function Cadastrar() {
     const [data, setData] = useState([]);
     const [item, setItem] = useState({ nome: "", senha: "", email: "" });
 
-    // const add_
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setItem((prevItem) => ({
+            ...prevItem,
+            [name]: value,
+        }));
+    };
+
+    const addItem = () => {
+        if (item.nome && item.email && item.senha) {
+            setData((prevData) => [...prevData, item]);
+            setItem({ nome: "", senha: "", email: "" });
+        } else {
+            alert("Preencha todos os campos!");
+        }
+    };
 
     return (
         <>
@@ -47,8 +63,9 @@ function Cadastrar() {
                         placeholder="Senha"
                     />
                 </div>
-                <button onClick={() => setData([...data, item])}>Cadastrar</button>
+                <button onClick={addItem}>Cadastrar</button>
             </div>
+
         </>
     );
 }
