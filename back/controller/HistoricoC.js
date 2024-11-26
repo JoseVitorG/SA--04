@@ -54,6 +54,18 @@ const add_historico = async (req, res) => {
     }
 }
 
+const devolver_api = async (req, res) => {
+    const body = req.body
+    let total = await EPIs.findByPk(body.id_epis)
+    if (body.id_epis && body.qtd) {
+        await Historico.update(
+            { horario_devolvido: new Date() },
+            { where: { id: body.id } })
+        await EPIs.update(
+            { qtd: total.qtd + body.qtd },
+            { where: { id: body.id_epis } }
+        )
+    }
+}
 
-
-export { listarHistorico, add_historico }
+export { listarHistorico, add_historico, devolver_api }

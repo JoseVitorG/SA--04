@@ -23,7 +23,7 @@ const Home = () => {
           </Link>
           <Link to="/historico" className="icon-button">
             <svg viewBox="0 0 24 24" ><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M7 9H2V7h5v2zm0 3H2v2h5v-2zm13.59 7-3.83-3.83c-.8.52-1.74.83-2.76.83-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5c0 1.02-.31 1.96-.83 2.75L22 17.59 20.59 19zM17 11c0-1.65-1.35-3-3-3s-3 1.35-3 3 1.35 3 3 3 3-1.35 3-3zM2 19h10v-2H2v2z"></path></svg>
-            <span>Histórico EPIs</span>
+            <span>Seu histórico EPIs</span>
           </Link>
           <Link to="/cadastro" className="icon-button">
             <svg viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"></path></svg>

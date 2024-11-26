@@ -7,6 +7,8 @@ import '../styles/Historico.css'
 function Historico() {
     const [historico, setHistorico] = useState([])
 
+
+
     const pegar_historico = async () => {
         const response = await axios.get("http://localhost:6969/historico")
         setHistorico(response.data)

@@ -1,6 +1,5 @@
 .home-header {
     background-color: #929292;
-    padding: 10px 20px;
     display: flex;
     align-items: center;
     border-bottom: 2px solid #ccc;
@@ -8,6 +7,8 @@
     top: 0;
     left: 0;
     width: 100%;
+    justify-content: space-between;
+    padding: 30px 10px;
 }
 
 .home-header h1 {
@@ -19,4 +20,14 @@
 .home-header svg {
     width: 40px;
     height: 40px;
+}
+
+.botoes{
+    padding-right: 30px;
+}
+
+.local{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
