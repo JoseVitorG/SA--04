@@ -13,7 +13,7 @@
     align-items: center;
     gap: 20px;
     padding: 20px;
-    flex: 1; /* Para ajustar a largura quando o formulário estiver visível */
+    flex: 1; 
 }
 
 .funcionario-card {
@@ -68,6 +68,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    align-items: center;
 }
 
 .formulario-cadastro input {

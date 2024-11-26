@@ -18,11 +18,18 @@ const listarFuncionarios = async (req, res) => {
     }
 }
 
+const listarTurnos = async (req, res) => {
+    const response = await Turnos.findAll()
+    res.status(200).send(response)
+}
+
 const criarFuncionario = async (req, res) => {
     try {
-        const body = req.params
-        if (body.nome && body.id_login && body.id_turno) {
-            await Funcionarios.create({ body })
+        const { email, senha, foto, nome, turno, cargo } = req.params
+        if (email && senha && foto && nome && turno) {
+            await Login.create({ email, senha, foto })
+            const idUser = Login.findOne({ where: { email: email } })
+            await Funcionarios.create({ nome, id_login: idUser.id, turno, cargo })
             res.status(201).send(true)
         } else res.status(500).send("erro")
     } catch (e) {
@@ -56,4 +63,4 @@ const deletarFuncionario = async (req, res) => {
     }
 }
 
-export { deletarFuncionario, criarFuncionario, atualizarFuncionario, listarFuncionarios }
+export { deletarFuncionario, listarTurnos, criarFuncionario, atualizarFuncionario, listarFuncionarios }

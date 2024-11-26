@@ -2,21 +2,28 @@ import React, { useState, useEffect } from 'react';
 import Header from "../content/Header.jsx";
 import '../styles/Funcionario.css';
 import axios from "axios";
+import { Dropdown } from 'primereact/dropdown';
 
 function Funcionarios() {
     const [funcionarios, setFuncionarios] = useState([]);
     const [mostrarCadastro, setMostrarCadastro] = useState(false);
+    const [turnos, setTurnos] = useState([])
     const [novoFuncionario, setNovoFuncionario] = useState({
+        email: "",
+        senha: "",
+        foto: "",
         nome: "",
-        cargo: "",
-        id_login: "",
-        id_turno: "",
+        turno: 1,
+        cargo: ""
     });
 
     const pegar_funcionarios = async () => {
         try {
+            const turnosD = await axios.get("http://localhost:6969/turnos")
             const response = await axios.get("http://localhost:6969/listar_func");
             setFuncionarios(response.data);
+            console.log(turnosD.data)
+            setTurnos(turnosD.data)
         } catch (error) {
             console.error("Erro ao buscar funcionários:", error);
         }
@@ -36,11 +43,9 @@ function Funcionarios() {
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNovoFuncionario((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
+        const { name, value } = e.target
+        setNovoFuncionario((e) => ({ ...e, [name]: value }))
+        console.log(novoFuncionario)
     };
 
     useEffect(() => {
@@ -97,25 +102,35 @@ function Funcionarios() {
                         />
                         <input
                             type="text"
+                            name="email"
+                            placeholder="Email"
+                            value={novoFuncionario.email}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="text"
+                            name="senha"
+                            placeholder="s  enha"
+                            value={novoFuncionario.senha}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="text"
                             name="cargo"
                             placeholder="Cargo"
                             value={novoFuncionario.cargo}
                             onChange={handleInputChange}
                         />
-                        <input
-                            type="text"
-                            name="id_login"
-                            placeholder="ID do Login"
-                            value={novoFuncionario.id_login}
-                            onChange={handleInputChange}
+
+                        <Dropdown
+                            value={novoFuncionario.turno}
+                            onChange={(i) => novoFuncionario.turno = i.value}
+                            options={turnos.map(turno => ({
+                                label: turno.nome,
+                                value: turno.id
+                            }))}
                         />
-                        <input
-                            type="text"
-                            name="id_turno"
-                            placeholder="ID do Turno"
-                            value={novoFuncionario.id_turno}
-                            onChange={handleInputChange}
-                        />
+
                         <button onClick={cadastrar_funcionario}>Cadastrar</button>
                         <button className="close" onClick={() => setMostrarCadastro(false)}>Cancelar</button>
                     </div>
