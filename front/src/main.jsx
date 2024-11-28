@@ -29,10 +29,6 @@ const router = createBrowserRouter([
     path: '/historico',
     element: <Historico />,
   },
-  {
-    path: '/cadastro',
-    element: <Cadastrar />,
-  },
 ]);
 
 
