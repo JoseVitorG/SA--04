@@ -10,7 +10,7 @@ function Epis() {
         const response = await axios.get("http://localhost:6969/listar_epi")
         setEpis(response.data)
     }
-
+    
     useEffect(() => {pegar_epi()},[])
 
     return (
