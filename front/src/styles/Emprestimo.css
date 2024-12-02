@@ -1,0 +1,39 @@
+.conteiner_emprestimo{
+    background-color: #ababab;
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.img_emprestimo{
+    width: 100px;
+    height: 100px;
+}
+
+.epi_emprestimo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.especificacoes_epis{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.conteiner_quantidade_emprestimo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.botoes_empestimo{
+    font-size: 28px;
+    cursor: pointer;
+    user-select: none;
+}

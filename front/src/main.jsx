@@ -5,7 +5,7 @@ import Emprestimos from './telas/Emprestimos.jsx';
 import Epis from './telas/Epis.jsx';
 import Historico from './telas/Historico.jsx';
 import Funcionarios from './telas/Funcionarios.jsx';
-import Cadastrar from './telas/Cadastrar.jsx';
+import "./styles/index.css"
 
 
 const router = createBrowserRouter([

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../content/Header.jsx";
-import '../styles/Funcionario.css';
 import axios from "axios";
 import { Dropdown } from 'primereact/dropdown';
+import '../styles/Funcionario.css';
 
 function Funcionarios() {
     const [funcionarios, setFuncionarios] = useState([]);
@@ -14,7 +14,7 @@ function Funcionarios() {
         foto: "",
         nome: "",
         turno: 1,
-        cargo: ""
+        cargo: "",
     });
 
     const pegar_funcionarios = async () => {
@@ -31,21 +31,22 @@ function Funcionarios() {
 
     const cadastrar_funcionario = async () => {
         try {
-            const response = await axios.post("http://localhost:6969/cadastrar_func", novoFuncionario);
+            const response = await axios.post("http://localhost:6969/add_func", novoFuncionario);
             alert("Funcionário cadastrado com sucesso!");
             setMostrarCadastro(false);
-            setNovoFuncionario({ nome: "", cargo: "", id_login: "", id_turno: "" });
+            setNovoFuncionario({
+                email: "",
+                senha: "",
+                foto: "",
+                nome: "",
+                turno: 1,
+                cargo: "",
+            });
             pegar_funcionarios();
         } catch (error) {
             console.error("Erro ao cadastrar funcionário:", error);
             alert("Erro ao cadastrar funcionário.");
         }
-    };
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target
-        setNovoFuncionario((e) => ({ ...e, [name]: value }))
-        console.log(novoFuncionario)
     };
 
     useEffect(() => {
@@ -67,7 +68,7 @@ function Funcionarios() {
                 <div className="funcionarios-lista">
                     <div
                         className="funcionario-card"
-                        onClick={() => setMostrarCadastro(true)}
+                        onClick={() => setMostrarCadastro(!mostrarCadastro)}
                     >
                         <div className="conteiner_add">
                             <p>+</p>
@@ -95,31 +96,28 @@ function Funcionarios() {
                         <h2>Cadastrar Funcionário</h2>
                         <input
                             type="text"
-                            name="nome"
                             placeholder="Nome"
-                            value={novoFuncionario.nome}
-                            onChange={handleInputChange}
+                            onChange={(e) => novoFuncionario.nome = e.target.value}
                         />
                         <input
                             type="text"
-                            name="email"
                             placeholder="Email"
-                            value={novoFuncionario.email}
-                            onChange={handleInputChange}
+                            onChange={(e) => novoFuncionario.email = e.target.value}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Senha"
+                            onChange={(e) => novoFuncionario.senha = e.target.value}
                         />
                         <input
                             type="text"
-                            name="senha"
-                            placeholder="s  enha"
-                            value={novoFuncionario.senha}
-                            onChange={handleInputChange}
-                        />
-                        <input
-                            type="text"
-                            name="cargo"
                             placeholder="Cargo"
-                            value={novoFuncionario.cargo}
-                            onChange={handleInputChange}
+                            onChange={(e) => novoFuncionario.cargo = e.target.value}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Foto"
+                            onChange={(e) => novoFuncionario.foto = e.target.value}
                         />
 
                         <Dropdown

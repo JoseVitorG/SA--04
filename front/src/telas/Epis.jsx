@@ -5,25 +5,80 @@ import axios from 'axios'
 
 function Epis() {
     const [epis, setEpis] = useState([]);
+    const [cadastro, setMostrarCadastro] = useState(false)
+    const [novoApi, setNovoApi] = useState({ nome: '', descri: "", qtd: 0, foto: '' })
 
-    const pegar_epi = async() =>{
+    const pegar_epi = async () => {
         const response = await axios.get("http://localhost:6969/listar_epi")
         setEpis(response.data)
     }
-    
-    useEffect(() => {pegar_epi()},[])
+
+    const cadastrar_api = async () => {
+        try {
+            const response = await axios.post("http://localhost:6969/add_epi", novoApi);
+            alert("Funcionário cadastrado com sucesso!");
+            setMostrarCadastro(false);
+            setNovoApi({ nome: '', descri: "", qtd: 0, foto: '' });
+            pegar_epi();
+        } catch (error) {
+            console.error("Erro ao cadastrar funcionário:", error);
+            alert("Erro ao cadastrar funcionário.");
+        }
+    };
+
+    useEffect(() => { pegar_epi() }, [])
 
     return (
         <>
             <Header nome={"EPIs"} svg={<svg viewBox="0 0 576 512"><path d="M544 280.9c0-89.17-61.83-165.4-139.6-197.4L352 174.2V49.78C352 39.91 344.1 32 334.2 32H241.8C231.9 32 224 39.91 224 49.78v124.4L171.6 83.53C93.83 115.5 32 191.7 32 280.9L31.99 352h512L544 280.9zM574.7 393.7C572.2 387.8 566.4 384 560 384h-544c-6.375 0-12.16 3.812-14.69 9.656c-2.531 5.875-1.344 12.69 3.062 17.34C7.031 413.8 72.02 480 287.1 480s280.1-66.19 283.6-69C576 406.3 577.2 399.5 574.7 393.7z"></path></svg>} />
             <div className="epis-container">
+                <div
+                    className="epi-item"
+                    onClick={() => setMostrarCadastro(!cadastro)}
+                >
+                    <div className="img_epis_conteiner">
+                        <p>+</p>
+                    </div>
+                    <p>Cadastrar funcionário</p>
+                </div>
                 {epis.map((epi) => (
                     <div key={epi.id} className="epi-item">
-                        <img src={epi.foto} alt={epi.nome} className="epi-image" />
+                        <div className="img_epis_conteiner">
+                            <img src={epi.foto} alt={epi.nome} className="epi-image" />
+                        </div>
                         <p className="epi-name">{epi.nome}</p>
                         <p className="epi-name">{epi.qtd}</p>
                     </div>
                 ))}
+
+                {cadastro && (
+                    <div className="formulario-cadastro">
+                        <h2>Cadastrar Funcionário</h2>
+                        <input
+                            type="text"
+                            placeholder="Nome"
+                            onChange={(e) => novoApi.nome = e.target.value}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Descricao"
+                            onChange={(e) => novoApi.descri = e.target.value}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Quantidade"
+                            onChange={(e) => novoApi.qtd = e.target.value}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Foto"
+                            onChange={(e) => novoApi.foto = e.target.value}
+                        />
+
+                        <button onClick={cadastrar_api}>Cadastrar</button>
+                        <button className="close" onClick={() => setMostrarCadastro(false)}>Cancelar</button>
+                    </div>
+                )}
             </div>
         </>
     );

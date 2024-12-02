@@ -25,11 +25,11 @@ const listarTurnos = async (req, res) => {
 
 const criarFuncionario = async (req, res) => {
     try {
-        const { email, senha, foto, nome, turno, cargo } = req.params
-        if (email && senha && foto && nome && turno) {
-            await Login.create({ email, senha, foto })
-            const idUser = Login.findOne({ where: { email: email } })
-            await Funcionarios.create({ nome, id_login: idUser.id, turno, cargo })
+        const { email, senha, foto, nome, turno, cargo } = req.body
+        if (email || senha || foto || nome || turno) {
+            await Login.create({email, senha, foto})
+            const idUser = await Login.findOne({ where: { email: email } })
+            await Funcionarios.create({ nome, id_login: idUser.id, id_turno: turno, cargo })
             res.status(201).send(true)
         } else res.status(500).send("erro")
     } catch (e) {
