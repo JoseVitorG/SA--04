@@ -39,7 +39,7 @@ function Epis() {
                     <div className="img_epis_conteiner">
                         <p>+</p>
                     </div>
-                    <p>Cadastrar funcionário</p>
+                    <p>Cadastrar EPI</p>
                 </div>
                 {epis.map((epi) => (
                     <div key={epi.id} className="epi-item">
@@ -53,7 +53,7 @@ function Epis() {
 
                 {cadastro && (
                     <div className="formulario-cadastro">
-                        <h2>Cadastrar Funcionário</h2>
+                        <h2>Cadastrar EPI</h2>
                         <input
                             type="text"
                             placeholder="Nome"
