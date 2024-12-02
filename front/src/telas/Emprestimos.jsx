@@ -66,7 +66,7 @@ function Emprestimos() {
                         </div>
                     ))}
                 </div>
-                <div onClick={enviar}>enviar</div>
+                <div onClick={enviar} class="btn btn-4 btn-sep icon-send">enviar</div>
             </div>
 
         </>
