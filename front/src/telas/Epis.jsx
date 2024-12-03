@@ -7,6 +7,8 @@ function Epis() {
     const [epis, setEpis] = useState([]);
     const [cadastro, setMostrarCadastro] = useState(false)
     const [novoApi, setNovoApi] = useState({ nome: '', descri: "", qtd: 0, foto: '' })
+    const [editarApi, setEditarAPI] = useState({ nome: '', descri: "", qtd: 0, foto: '' })
+    const [editar, setEditar] = useState(false)
 
     const pegar_epi = async () => {
         const response = await axios.get("http://localhost:6969/listar_epi")
@@ -26,6 +28,19 @@ function Epis() {
         }
     };
 
+    const pegar_um_epi = async (id) => {
+        const response = await axios.get(`http://localhost:6969/listar_epi/${id}`)
+        editarApi.nome = response.nome
+    }
+
+    const editar_api = async () => {
+        try {
+            const response = await axios.put("http://localhost:6969/atualizar_epi/{}")
+        } catch (e) {
+
+        }
+    }
+
     useEffect(() => { pegar_epi() }, [])
 
     return (
@@ -42,7 +57,7 @@ function Epis() {
                     <p>Cadastrar EPI</p>
                 </div>
                 {epis.map((epi) => (
-                    <div key={epi.id} className="epi-item">
+                    <div key={epi.id} className="epi-item" onClick={() => { setEditar(!editar), pegar_um_epi(epi.id) }}>
                         <div className="img_epis_conteiner">
                             <img src={epi.foto} alt={epi.nome} className="epi-image" />
                         </div>
@@ -77,6 +92,35 @@ function Epis() {
 
                         <button onClick={cadastrar_api}>Cadastrar</button>
                         <button className="close" onClick={() => setMostrarCadastro(false)}>Cancelar</button>
+                    </div>
+                )}
+
+                {editar && (
+                    <div className="formulario-cadastro">
+                        <h2>Ediatar EPI</h2>
+                        <input
+                            type="text"
+                            placeholder="Nome"
+                            onChange={(e) => editarApi.nome = e.target.value}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Descricao"
+                            onChange={(e) => editarApi.descri = e.target.value}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Quantidade"
+                            onChange={(e) => editarApi.qtd = e.target.value}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Foto"
+                            onChange={(e) => editarApi.foto = e.target.value}
+                        />
+
+                        <button onClick={() => editar_api()}>Cadastrar</button>
+                        <button className="close" onClick={() => setEditar(false)}>Cancelar</button>
                     </div>
                 )}
             </div>

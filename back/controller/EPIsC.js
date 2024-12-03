@@ -11,6 +11,16 @@ const listarEPIs = async (req, res) => {
     }
 }
 
+const listarEPI = async (req, res) => {
+    try {
+        const { id } = req.params
+        const response = await EPIs.findByPk(id)
+        res.status(200).send(response)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+}
+
 const criarEpi = async (req, res) => {
     try {
         const body = req.body
@@ -52,4 +62,4 @@ const deletarEpi = async (req, res) => {
     }
 }
 
-export { listarEPIs, criarEpi, atualizarEpi, deletarEpi }
+export { listarEPIs, criarEpi, atualizarEpi, deletarEpi, listarEPI }

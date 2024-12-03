@@ -18,6 +18,23 @@ const listarFuncionarios = async (req, res) => {
     }
 }
 
+const listarFuncionario = async (req, res) => {
+    try {
+        const { id } = req.params
+        const response = await Funcionarios.findByPk(id, {
+            attributes: { exclude: ["id_login", "id_turno"] },
+            include: [
+                { model: Login },
+                { model: Turnos }
+            ]
+        })
+        res.status(200).send(response)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send("erro")
+    }
+}
+
 const listarTurnos = async (req, res) => {
     const response = await Turnos.findAll()
     res.status(200).send(response)
@@ -27,7 +44,7 @@ const criarFuncionario = async (req, res) => {
     try {
         const { email, senha, foto, nome, turno, cargo } = req.body
         if (email || senha || foto || nome || turno) {
-            await Login.create({email, senha, foto})
+            await Login.create({ email, senha, foto })
             const idUser = await Login.findOne({ where: { email: email } })
             await Funcionarios.create({ nome, id_login: idUser.id, id_turno: turno, cargo })
             res.status(201).send(true)
@@ -63,4 +80,4 @@ const deletarFuncionario = async (req, res) => {
     }
 }
 
-export { deletarFuncionario, listarTurnos, criarFuncionario, atualizarFuncionario, listarFuncionarios }
+export { deletarFuncionario, listarFuncionario, listarTurnos, criarFuncionario, atualizarFuncionario, listarFuncionarios }

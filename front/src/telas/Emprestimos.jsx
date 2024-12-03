@@ -4,9 +4,6 @@ import axios from "axios";
 import '../styles/Emprestimo.css';
 import Modal from "../content/Modal.jsx"
 
-
-
-
 function Emprestimos() {
     const [epis, setEpis] = useState([])
     const [pegos, setPegos] = useState([])
