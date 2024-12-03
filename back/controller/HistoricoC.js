@@ -20,7 +20,8 @@ const listarHistorico = async (_, res) => {
                         'DD/MM/YYYY HH24:MI'),
                     "horario_devolvido"
                 ],
-                "qtd"
+                "qtd",
+                "id"
             ],
             include: [
                 { model: Funcionarios },
@@ -35,13 +36,13 @@ const listarHistorico = async (_, res) => {
 }
 
 const add_historico = async (req, res) => {
-    try {
-        const { user, pegos } = req.body;
-        const { email, senha } = user;
+    const { user, pegos } = req.body;
+    const { email, senha } = user;
 
-        let userRecord = await Login.findOne({ where: { email, senha } });
-
-        if (userRecord) {
+    let userRecord = await Login.findOne({ where: { email, senha } });
+    if (userRecord) {
+        const dataUser = await Funcionarios.findOne({ where: { id_login: userRecord.id } })
+        if (dataUser) {
             if (pegos && pegos.length > 0) {
                 let epiIds = pegos.map(i => i.id);
                 let epes = await EPIs.findAll({ where: { id: epiIds } });
@@ -52,7 +53,7 @@ const add_historico = async (req, res) => {
 
                 if (estoqueSuficiente) {
                     await Historico.bulkCreate(pegos.map(i => ({
-                        id_funcionarios: userRecord.id,
+                        id_funcionarios: dataUser.id,
                         id_epis: i.id,
                         qtd: i.qtd,
                         horario_pego: new Date()
@@ -66,19 +67,16 @@ const add_historico = async (req, res) => {
                         );
                     }
 
-                    res.status(201).send("Histórico e estoque atualizados com sucesso");
+                    return res.status(200).send("Histórico e estoque atualizados com sucesso");
                 } else {
-                    res.status(500).send("Quantidade no estoque insuficiente");
+                    return res.status(500).send("Quantidade no estoque insuficiente");
                 }
             } else {
-                res.status(500).send("Faltando informações (pegos ou qtd)");
+                return res.status(500).send("Faltando informações (pegos ou qtd)");
             }
-        } else {
-            res.status(500).send("Usuário ou senha errada");
-        }
-    } catch (e) {
-        console.log(e);
-        res.status(500).send("Erro ao processar a requisição");
+        } return res.status(404).send("Usuário nao encontrado");
+    } else {
+        return res.status(404).send("Usuário ou senha errada");
     }
 };
 
