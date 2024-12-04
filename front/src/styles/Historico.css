@@ -26,3 +26,32 @@ body{
     border: 1px solid #ddd;
     border-radius: 8px;
 }
+
+.conteiner_pesquisa{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+
+}
+
+.input_pesquisa{
+    padding: 5px;
+    width: 300px;
+}
+
+.conteiner_select{
+    padding: 5px;
+}
+
+.botao_devolver{
+    background-color: #7d2ae8;
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}

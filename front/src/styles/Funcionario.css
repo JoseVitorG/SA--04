@@ -9,7 +9,7 @@ body, html {
 .funcionarios-lista-container {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     gap: 40px;
     padding: 20px;
@@ -110,4 +110,10 @@ body, html {
 
 .formulario-cadastro button.close:hover {
     background-color: #d32f2f;
+}
+
+.conteiner_editar_func{
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }

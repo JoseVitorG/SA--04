@@ -8,6 +8,26 @@ function Funcionarios() {
     const [funcionarios, setFuncionarios] = useState([]);
     const [mostrarCadastro, setMostrarCadastro] = useState(false);
     const [turnos, setTurnos] = useState([])
+    const [atualizar, setAtualizar] = useState(false)
+    const [editar, setEditar] = useState({
+        id: null,
+        nome: '',
+        id_login: null,
+        id_turno: 1,
+        cargo: '',
+        Login: {
+            id: null,
+            email: '',
+            senha: '',
+            foto: ''
+        },
+        Turno: {
+            id: null,
+            nome: '',
+            ini: '',
+            fim: ''
+        }
+    });
     const [novoFuncionario, setNovoFuncionario] = useState({
         email: "",
         senha: "",
@@ -40,7 +60,7 @@ function Funcionarios() {
                 foto: "",
                 nome: "",
                 turno: 1,
-                cargo: "",
+                cargo: '',
             });
             pegar_funcionarios();
         } catch (error) {
@@ -48,6 +68,35 @@ function Funcionarios() {
             alert("Erro ao cadastrar funcionário.");
         }
     };
+
+    const pegar_um_func = async (id) => {
+        try {
+            const response = await axios.get(`http://localhost:6969/listar_func/${id}`)
+            console.log(response.data)
+            setEditar(response.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const atualizarFuncionarios = async () => {
+        try {
+            const response = await axios.put(`http://localhost:6969/atualizar_func/${editar.id}`, editar)
+            pegar_funcionarios()
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const deletar_user = async () => {
+        try{
+            const response = await axios.delete(`http://localhost:6969/delete_func/${editar.id}`)
+            setAtualizar(false)
+            pegar_funcionarios()
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     useEffect(() => {
         pegar_funcionarios();
@@ -70,15 +119,15 @@ function Funcionarios() {
                         className="funcionario-card"
                         onClick={() => setMostrarCadastro(!mostrarCadastro)}
                     >
-                        <div className="conteiner_add">
+                        <div className="conteiner_add" >
                             <p>+</p>
                         </div>
                         <p>Cadastrar funcionário</p>
                     </div>
                     {funcionarios.map((funcionario) => (
-                        <div key={funcionario.id} className="funcionario-card">
+                        <div key={funcionario.id} className="funcionario-card" onClick={() => { setAtualizar(!atualizar), pegar_um_func(funcionario.id) }}>
                             <img
-                                src={funcionario?.Login?.foto || "/placeholder.png"}
+                                src={funcionario?.Login.foto}
                                 alt={`${funcionario.nome} foto`}
                                 className="funcionario-foto"
                             />
@@ -122,7 +171,12 @@ function Funcionarios() {
 
                         <Dropdown
                             value={novoFuncionario.turno}
-                            onChange={(i) => novoFuncionario.turno = i.value}
+                            onChange={(i) => {
+                                setNovoFuncionario((prev) => ({
+                                    ...prev,
+                                    turno: i.value,
+                                }));
+                            }}
                             options={turnos.map(turno => ({
                                 label: turno.nome,
                                 value: turno.id
@@ -131,6 +185,83 @@ function Funcionarios() {
 
                         <button onClick={cadastrar_funcionario}>Cadastrar</button>
                         <button className="close" onClick={() => setMostrarCadastro(false)}>Cancelar</button>
+                    </div>
+                )}
+
+                {atualizar && (
+
+                    <div className="formulario-cadastro">
+                        <div className='conteiner_editar_func'>
+                            <h2>Editar Funcionário</h2>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" onClick={deletar_user}>
+                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                            </svg>
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="Nome"
+                            value={editar.nome}
+                            onChange={(e) => setEditar({ ...editar, nome: e.target.value })}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Email"
+                            value={editar.Login.email}
+                            onChange={(e) => setEditar((prev) => ({
+                                ...prev,
+                                Login: {
+                                    ...prev.Login,
+                                    email: e.target.value,
+                                },
+                            }))}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Senha"
+                            value={editar.Login.senha}
+                            onChange={(e) => setEditar((prev) => ({
+                                ...prev,
+                                Login: {
+                                    ...prev.Login,
+                                    senha: e.target.value,
+                                },
+                            }))}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Cargo"
+                            value={editar.cargo}
+                            onChange={(e) => setEditar({ ...editar, cargo: e.target.value })}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Foto"
+                            value={editar.Login.foto}
+                            onChange={(e) => setEditar((prev) => ({
+                                ...prev,
+                                Login: {
+                                    ...prev.Login,
+                                    foto: e.target.value,
+                                },
+                            }))}
+                        />
+
+                        <Dropdown
+                            value={novoFuncionario.turno}
+                            onChange={(i) => {
+                                setEditar((prev) => ({
+                                    ...prev,
+                                    id_turno: i.value,
+                                }));
+                            }}
+                            options={turnos.map(turno => ({
+                                label: turno.nome,
+                                value: turno.id
+                            }))}
+                        />
+
+                        <button onClick={atualizarFuncionarios}>Editar</button>
+                        <button className="close" onClick={() => setAtualizar(false)}>Cancelar</button>
                     </div>
                 )}
             </div>

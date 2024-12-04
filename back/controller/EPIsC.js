@@ -1,4 +1,5 @@
 import EPIs from "../module/EPIs.js"
+import Historico from "../module/Historico.js"
 
 
 const listarEPIs = async (req, res) => {
@@ -40,10 +41,9 @@ const atualizarEpi = async (req, res) => {
     try {
         const { id } = req.params
         const body = req.body
-
         if (body.nome || body.descri || body.qtd) {
-            await EPIs.update({ body }, { where: { id } })
-            res.status(202).send(true)
+            const response = await EPIs.update(body, { where: { id } })
+            res.status(200).send(response)
         }
     } catch (e) {
         console.log(e)
@@ -53,9 +53,27 @@ const atualizarEpi = async (req, res) => {
 
 const deletarEpi = async (req, res) => {
     try {
-        const { id } = req.params
-        await EPIs.destroy({ where: { id } })
-        res.status(200).send(true)
+        const { id } = req.params;
+
+        const epi = await EPIs.findByPk(id);
+        if (!epi) {
+            return res.status(404).send(`${id} não encontrado`);
+        }
+
+        await EPIs.destroy({ where: { id: id } })
+
+        const historicos = await Historico.findAll({ where: { id_epis: id } });
+
+        if (historicos.length > 0) {
+            for (const body of historicos) {
+                await EPIs.update(
+                    { qtd: epi.qtd + body.qtd },
+                    { where: { id: body.id_epis } }
+                );
+            }
+            await Historico.destroy({ where: { id_epis: id } });
+        }
+        res.status(200).send(true);
     } catch (e) {
         console.log(e)
         res.status(500).send("erro")

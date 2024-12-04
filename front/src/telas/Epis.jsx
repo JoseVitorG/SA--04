@@ -34,7 +34,17 @@ function Epis() {
 
     const editar_api = async () => {
         try {
-            const a = await axios.put(`http://localhost:6969/atualizar_epi/${editarApi.id}`, editarApi)
+            const response = await axios.put(`http://localhost:6969/atualizar_epi/${editarApi.id}`, editarApi)
+            pegar_epi()
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const deletar_epi = async () => {
+        try {
+            const response = await axios.delete(`http://localhost:6969/delete_epi/${editarApi.id}`)
+            setEditar(false)
             pegar_epi()
         } catch (e) {
             console.log(e)
@@ -97,7 +107,12 @@ function Epis() {
 
                 {editar && (
                     <div className="formulario-cadastro">
-                        <h2>Ediatar EPI</h2>
+                        <div className='conteiner_editar_func'>
+                            <h2>Ediatar EPI</h2>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" onClick={deletar_epi}>
+                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                            </svg>
+                        </div>
                         <input
                             type="text"
                             placeholder="Nome"
@@ -123,7 +138,7 @@ function Epis() {
                             onChange={(e) => setEditarAPI({ ...editarApi, foto: e.target.value })}
                         />
 
-                        <button onClick={editar_api}>Cadastrar</button>
+                        <button onClick={editar_api}>Editar</button>
                         <button className="close" onClick={() => setEditar(false)}>Cancelar</button>
                     </div>
                 )}
