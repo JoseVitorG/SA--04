@@ -27,7 +27,7 @@ const criarEpi = async (req, res) => {
         if (body.nome && body.descri && body.qtd && body.foto) {
             if (body.qtd > 0) {
                 await EPIs.create(body)
-                res.status(201).send("adicionado")
+                res.status(200).send("adicionado")
             } else res.status(500).send("quantidade tem que ser maior que 0")
         } else res.status(500).status("tem que ter todos os coisas coisados")
     } catch (e) {

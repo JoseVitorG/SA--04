@@ -17,8 +17,7 @@ function Epis() {
 
     const cadastrar_api = async () => {
         try {
-            const response = await axios.post("http://localhost:6969/add_epi", novoApi);
-            alert("Funcionário cadastrado com sucesso!");
+            await axios.post("http://localhost:6969/add_epi", novoApi);
             setMostrarCadastro(false);
             setNovoApi({ nome: '', descri: "", qtd: 0, foto: '' });
             pegar_epi();
@@ -30,14 +29,15 @@ function Epis() {
 
     const pegar_um_epi = async (id) => {
         const response = await axios.get(`http://localhost:6969/listar_epi/${id}`)
-        editarApi.nome = response.nome
+        setEditarAPI(response.data)
     }
 
     const editar_api = async () => {
         try {
-            const response = await axios.put("http://localhost:6969/atualizar_epi/{}")
+            const a = await axios.put(`http://localhost:6969/atualizar_epi/${editarApi.id}`, editarApi)
+            pegar_epi()
         } catch (e) {
-
+            console.log(e)
         }
     }
 
@@ -101,25 +101,29 @@ function Epis() {
                         <input
                             type="text"
                             placeholder="Nome"
-                            onChange={(e) => editarApi.nome = e.target.value}
+                            value={editarApi.nome}
+                            onChange={(e) => setEditarAPI({ ...editarApi, nome: e.target.value })}
                         />
                         <input
                             type="text"
                             placeholder="Descricao"
-                            onChange={(e) => editarApi.descri = e.target.value}
+                            value={editarApi.descri}
+                            onChange={(e) => setEditarAPI({ ...editarApi, descri: e.target.value })}
                         />
                         <input
                             type="text"
                             placeholder="Quantidade"
-                            onChange={(e) => editarApi.qtd = e.target.value}
+                            value={editarApi.qtd}
+                            onChange={(e) => setEditarAPI({ ...editarApi, qtd: e.target.value })}
                         />
                         <input
                             type="text"
                             placeholder="Foto"
-                            onChange={(e) => editarApi.foto = e.target.value}
+                            value={editarApi.foto}
+                            onChange={(e) => setEditarAPI({ ...editarApi, foto: e.target.value })}
                         />
 
-                        <button onClick={() => editar_api()}>Cadastrar</button>
+                        <button onClick={editar_api}>Cadastrar</button>
                         <button className="close" onClick={() => setEditar(false)}>Cancelar</button>
                     </div>
                 )}
