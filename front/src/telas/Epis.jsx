@@ -17,10 +17,11 @@ function Epis() {
 
     const cadastrar_api = async () => {
         try {
+            console.log()
             await axios.post("http://localhost:6969/add_epi", novoApi);
             setMostrarCadastro(false);
             setNovoApi({ nome: '', descri: "", qtd: 0, foto: '' });
-            pegar_epi();
+            await pegar_epi();
         } catch (error) {
             console.error("Erro ao cadastrar funcionário:", error);
             alert("Erro ao cadastrar funcionário.");
